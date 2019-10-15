@@ -1,0 +1,46 @@
+.story-name:hover{
+    text-decoration: underline !important;   
+}
+
+.story-total-chapter{
+    color: #6b9876 !important;
+}
+
+.story-total-chapter:hover{
+    text-decoration: underline !important;   
+}
+
+.story-author{
+    color : black !important;
+    font-style: italic;
+}
+
+.story-author:hover{
+    text-decoration: underline !important;   
+}
+
+.story-action-read{
+    color: #6b9876 !important;    
+}
+
+.story-action-read:hover{
+    text-decoration: underline !important;
+}
+
+.story-status{
+    color: #6b9876 !important;
+}
+
+.story-info{
+    font-style: italic;
+}
+
+#story-pagination span{
+    color: #6b9876 !important;
+    cursor: pointer;
+}
+
+#story-pagination span:hover{    
+    text-decoration: underline;
+    background-color: rgba(0,0,0,.05);
+}
