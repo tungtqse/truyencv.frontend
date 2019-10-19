@@ -1,0 +1,40 @@
+.link{
+    color: #6b9876;
+}
+
+.link:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.common-pagination span{
+    color: #6b9876 !important;
+    cursor: pointer;
+}
+
+.common-pagination span:hover{    
+    text-decoration: underline;
+    background-color: rgba(0,0,0,.05);
+}
+
+.common-button{
+    background-color: #6b9876 !important;
+    color: white !important;
+}
+
+.common-button:hover{
+    cursor: pointer !important;
+    background-color: #3ca055 !important;
+}
+
+.select-core{
+    padding: 9.5px 14px !important;
+}
+
+.select-option-default{
+    color: gainsboro !important;
+}
+
+.float-right{
+    float: right !important;
+}

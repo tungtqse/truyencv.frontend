@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {search} from '../../actions/storyActs'
 import '../../styles/story/story-list.css';
 import {SKIP_DEFAULT, TAKE_DEFAULT, MAX_PAGE} from '../../core/constants';
+import Paging from '../Common/Paging/Paging';
 
 class ListStory extends React.Component {   
 
@@ -11,29 +12,12 @@ class ListStory extends React.Component {
 
     componentDidMount(){
         this.props.search(this.state);
-    }
+    } 
 
-    componentDidUpdate(prevProps, prevState){
-        if(prevState !== this.state){
-            this.props.search(this.state);
-        }
-        
-    }
-
-    pageOnClick = (page) => {          
-        let {currentPage, nextPage, previousPage} = this.state.paging;
-
-        if(page !== currentPage){
-            currentPage = page;
-            nextPage = (page !== this.props.count) ? page + 1 : page;
-            previousPage = (page !== 0) ? page - 1 : 0;
-            let skipNew = page * TAKE_DEFAULT;
-
-            this.setState({
-                skip: skipNew,
-                paging :{currentPage : currentPage, nextPage:nextPage, previousPage:previousPage}
-            });
-        }        
+    pageOnClick = (skip) => {          
+        var data = this.state;
+        data.skip = skip;
+        this.props.search(this.state);    
     }
 
     renderList = () => {        
@@ -79,52 +63,19 @@ class ListStory extends React.Component {
                 </tr>                
             )
         });
-    }
-
-    renderPagination = () => {        
-
-        let page = [];
-
-        if(!this.props.count){
-            return;
-        } 
-
-        var totalPage = Math.ceil(this.props.count / this.state.take);
-
-        if(this.state.paging.currentPage !== 0){
-            page.push(<span value="0" title="First Page" type="firstItem" className="item"> « </span>);
-            page.push(<span value={this.state.paging.previousPage} title="Previous Page" type="prevItem" className="item"> ⟨ </span>);
-        }
-       
-        for (let index = 0; index < totalPage; index++) {
-
-            if(index === MAX_PAGE){               
-                break;
-            }
-          
-            page.push(<span value={index} type="pageItem" className={(index === this.state.paging.currentPage) ? "active item" : "item"} onClick={() => this.pageOnClick(index)}> {index + 1} </span>);       
-        }       
-
-        if(this.state.paging.currentPage < totalPage){
-            page.push(<span value={this.state.paging.nextPage} title="Next Page" type="nextItem" className="item"> ⟩ </span>);
-            page.push(<span value={totalPage} title="Last Page" type="lastItem" className="item"> » </span>);
-        }        
-
-        return page;
-    }
+    }    
 
     render(){
         return(
-            <div>
+            <div className="ui container" id="story-page">
                 <table className="ui single line table">
                     <thead></thead>
                     <tbody>
                         {this.renderList()}
                     </tbody>
                 </table>    
-                <div aria-label="Pagination Navigation" role="navigation" className="ui pagination menu" id="story-pagination">
-                    {this.renderPagination()}
-                </div>            
+                <Paging count={this.props.count} take={TAKE_DEFAULT} pageOnClick={this.pageOnClick}/>  
+                <Link to="/story/new/" className="ui button common-button float-right" data-tooltip="Create Story"><i className="fitted plus icon"/></Link>          
             </div>
         )
     }

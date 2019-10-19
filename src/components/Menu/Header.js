@@ -1,13 +1,14 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import Search from './Search';
-
+import '../../styles/menu.css'
 
 const Header = () => {
     return(
-        <div className="ui secondary pointing menu">
+        <div className="ui secondary pointing menu top-menu">
             <Link to="/" className="item">
-                Lastest
+                <i className="home icon"/>
+                Trang chủ
             </Link>
             <Link to="/" className="item">
                 Most Likes

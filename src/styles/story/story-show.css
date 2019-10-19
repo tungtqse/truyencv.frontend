@@ -1,0 +1,17 @@
+.story-info{
+    font-size: 14px;
+    font-weight: 500;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/* hide long text to fit in div */
+.story-chapter > div{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.story-header > h3 {
+    display: inline;
+    margin-right: 3%;
+}

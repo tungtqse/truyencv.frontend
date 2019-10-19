@@ -1,0 +1,46 @@
+.chapter-background{
+    /* margin-top: 5%; */
+    background-color: #e4dece;
+}
+
+.chapter-header{
+    padding: 3%;
+    text-align: center;
+}
+
+.chapter-info{
+    text-align: center;
+}
+
+.chapter-setting{
+    margin: 2%;
+    text-align: center;
+}
+
+.chapter-button{
+    margin: 1% !important;
+    background-color: #6B9876 !important;
+}
+
+.chapter-content-info{
+    background-color: #EAE4D3 !important;
+    margin: 1% 0;
+}
+
+.chapter-subheader{
+    padding: 5%;    
+}
+
+.chapter-subheader > h4{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 26px !important;
+    line-height: 140% !important;
+}
+
+.chapter-content{
+    padding: 0 5% 3% 5%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 26px;
+    line-height: 140%;
+    word-wrap: break-word;
+}

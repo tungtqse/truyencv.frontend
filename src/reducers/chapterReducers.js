@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {CREATE_STORY, DELETE_STORY, EDIT_STORY, GET_STORY, LIST_STORY} from '../core/actionTypes';
+import {LIST_CHAPTER, GET_CHAPTER} from '../core/actionTypes';
 
 const INTIAL_STATE = {    
     code : null,
@@ -11,21 +11,17 @@ const INTIAL_STATE = {
 
 export default (state = INTIAL_STATE, action) => {
     switch(action.type){
-        case LIST_STORY: {
+        case LIST_CHAPTER: {
             
             const {code,isSuccessful,messages, count} = action.payload;
             const data = _.mapKeys(action.payload.data, 'id');
             
             return {...state, code,isSuccessful,messages, count, data};
         }
-        case GET_STORY:{
+        case GET_CHAPTER:{
             const {code,isSuccessful,messages, data} = action.payload;   
             const {count} = INTIAL_STATE;        
             return {...state, code,isSuccessful,messages, count, data};
-        }
-        case EDIT_STORY:{
-            const {code,isSuccessful,messages} = action.payload;                
-            return {...state, code,isSuccessful,messages};
         }
         default :{
             return state;

@@ -1,0 +1,10 @@
+.top-menu{
+    background-color: #6B9876 !important;
+    margin-bottom: 0 !important;    
+}
+
+.top-menu > a {
+    color: white !important;
+    line-height: 20px;
+    font-family: source sans pro,sans-serif;
+}

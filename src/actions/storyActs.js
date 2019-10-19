@@ -3,8 +3,8 @@ import {CREATE_STORY, DELETE_STORY, EDIT_STORY, GET_STORY, LIST_STORY} from '../
 import history from '../history';
 
 export const search = (data) => {
-    return async(dispatch) => {          
-        debugger
+    return async(dispatch) => {         
+        
         if(!data.keyword){
             data.keyword = '';
         }
@@ -17,5 +17,49 @@ export const search = (data) => {
         });
 
         dispatch({ type: LIST_STORY, payload: response.data });
+    }
+}
+
+export const show = (id) => {
+    return async(dispatch) => {    
+        
+        const response = await storyApi.post(`/story/get/`,{id: id},{            
+            headers:{
+                accept : 'application/json',
+                'content-type' : 'application/json'
+            }
+        });
+
+        dispatch({ type: GET_STORY, payload: response.data });
+    }
+}
+
+export const edit = (data) => {    
+    return async (dispatch) => {  
+        
+        const {id} = data;
+        const response = await storyApi.post(`/story/update/`,data,{            
+            headers:{
+                accept : 'application/json',
+                'content-type' : 'application/json'
+            }
+        });
+
+        dispatch({ type: EDIT_STORY, payload: response.data });
+        history.push(`/story/${id}`);
+    }
+}
+
+export const create = (data) => {    
+    return async (dispatch) => {         
+        const response = await storyApi.post(`/story/create`,data,{            
+            headers:{
+                accept : 'application/json',
+                'content-type' : 'application/json'
+            }
+        });
+
+        dispatch({ type: CREATE_STORY, payload: response.data });
+        history.push('/');
     }
 }
