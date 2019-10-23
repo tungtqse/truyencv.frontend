@@ -38,3 +38,15 @@
 .float-right{
     float: right !important;
 }
+
+.common-header{
+    color: #3ca055;
+}
+
+.float-center{
+    text-align: center;
+}
+
+.in-center{
+    vertical-align: middle;
+}

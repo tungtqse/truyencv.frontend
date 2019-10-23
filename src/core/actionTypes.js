@@ -18,3 +18,6 @@ export const EDIT_CHAPTER = 'EDIT_CHAPTER';
 export const DELETE_CHAPTER = 'DELETE_CHAPTER';
 export const GET_CHAPTER = 'GET_CHAPTER';
 export const LIST_CHAPTER = 'LIST_CHAPTER';
+
+// Search Action Types
+export const SEARCH = 'SEARCH';

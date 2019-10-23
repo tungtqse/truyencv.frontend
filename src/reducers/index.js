@@ -3,11 +3,13 @@ import {reducer as formReducer} from 'redux-form';
 import storyReducer from './storyReducers';
 import chapterReducer from './chapterReducers';
 import authorReducer from './authorReducers';
+import searchReducer from './searchReducers';
 
 
 export default combineReducers({
     form: formReducer,
     story : storyReducer,
     chapter : chapterReducer,
-    author : authorReducer 
+    author : authorReducer,
+    search: searchReducer 
 });

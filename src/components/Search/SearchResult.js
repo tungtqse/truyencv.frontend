@@ -1,25 +1,32 @@
 import React from 'react';
+import {search} from '../../actions/storyActs';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {search} from '../../actions/storyActs'
 import '../../styles/story/story-list.css';
 import {SKIP_DEFAULT, TAKE_DEFAULT, MAX_PAGE} from '../../core/constants';
 import Paging from '../Common/Paging/Paging';
 
-class ListStory extends React.Component {   
+class SearchResult extends React.Component{
 
-    state = {keyword: this.props.keyword ,skip : SKIP_DEFAULT, take: TAKE_DEFAULT, paging: {currentPage: 0, nextPage: 1, previousPage: 0}}
+    state = {keyword: '',skip : SKIP_DEFAULT, take: TAKE_DEFAULT, paging: {currentPage: 0, nextPage: 1, previousPage: 0}}
 
     componentDidMount(){
-        
+        debugger
         const data = {...this.state};
+        data.keyword = this.props.match.params.keyword;   
 
-        if(!this.props.keyword){
-            data.keyword = '';
-        }
-
-        this.props.search(data);
+        this.props.search(data);        
     } 
+
+    componentWillReceiveProps(nextProps) {
+        
+        if(this.props.match.params !== nextProps.match.params) {
+            const data = {...this.state};
+            data.keyword = nextProps.match.params.keyword;   
+
+            nextProps.search(data);   
+        }
+    }
 
     pageOnClick = (skip) => {          
         var data = this.state;
@@ -27,12 +34,40 @@ class ListStory extends React.Component {
         this.props.search(this.state);    
     }
 
+    renderContent = () => {
+
+        const keyword = this.props.keyword;          
+       
+        if(!this.props.results || this.props.results.length === 0){
+            return(
+                <div className="ui header">                    
+                    <h3 className="common-header float-center">Không tìm thấy nội dung bạn yêu cầu : {keyword}</h3>
+                </div>
+            )
+        }
+
+        return(
+            <>
+                <div className="ui header">
+                    <h3 className="common-header">Tìm kiếm truyện : {keyword} </h3>
+                </div>
+                <table className="ui single line table">
+                    <thead></thead>
+                    <tbody>
+                        {this.renderList()}
+                    </tbody>
+                </table>    
+                <Paging count={this.props.count} take={TAKE_DEFAULT} pageOnClick={this.pageOnClick}/>    
+            </>
+        );
+    }
+
     renderList = () => {        
-        if(!this.props.stories){
+        if(!this.props.results){
             return;
         }
         
-        return this.props.stories.map((item) => {
+        return this.props.results.map((item) => {
             return(
                 <tr key={item.id}>
                    <td>
@@ -70,32 +105,23 @@ class ListStory extends React.Component {
                 </tr>                
             )
         });
-    }    
+    }  
 
     render(){
         return(
             <div className="ui container" id="story-page">
-                <div className="ui header">
-                    <h3 className="common-header">Danh sách truyện</h3>
-                </div>
-                <table className="ui single line table">
-                    <thead></thead>
-                    <tbody>
-                        {this.renderList()}
-                    </tbody>
-                </table>    
-                <Paging count={this.props.count} take={TAKE_DEFAULT} pageOnClick={this.pageOnClick}/>  
-                <Link to="/story/new/" className="ui button common-button float-right" data-tooltip="Create Story"><i className="fitted plus icon"/></Link>          
+                {this.renderContent()}
             </div>
         )
     }
 }
 
-const mapStateToProps = (state) => {    
+const mapStateToProps = (state, ownProps) => {    
     return{
-        stories : Object.values(state.story.data),
+        keyword: ownProps.keyword,
+        results : Object.values(state.story.data),
         count : state.story.count
     }
 }
 
-export default connect(mapStateToProps, {search}) (ListStory);
+export default connect(mapStateToProps, {search}) (SearchResult);

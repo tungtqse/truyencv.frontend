@@ -10,8 +10,8 @@ const Header = () => {
                 <i className="home icon"/>
                 Trang chủ
             </Link>
-            <Link to="/" className="item">
-                Most Likes
+            <Link to="/author" className="item">
+                Tác giả
             </Link>
             <Link to="/" className="item">
                 Actors

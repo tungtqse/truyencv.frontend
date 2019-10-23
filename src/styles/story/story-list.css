@@ -31,8 +31,10 @@
     color: #6b9876 !important;
 }
 
-.story-info{
+.story-modified{
     font-style: italic;
+    color:gray;
+    font-size: 95%;
 }
 
 #story-pagination span{
@@ -46,5 +48,5 @@
 }
 
 #story-page{
-    margin-top: 3%;
+    margin-top: 2%;
 }

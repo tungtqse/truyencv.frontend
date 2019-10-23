@@ -1,0 +1,12 @@
+.author-info{
+    margin-top: 14px;
+}
+
+.author-header{
+    color: #6b9876;
+}
+
+.author-header > h4{
+    display: inline;
+    margin-right: 3%;
+}

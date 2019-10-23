@@ -8,7 +8,7 @@ class Paging extends React.Component{
     renderPagination = () => {        
         
         let page = [];
-
+        
         if(!this.props.count){
             return;
         } 

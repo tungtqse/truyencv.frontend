@@ -23,6 +23,7 @@ export default (state = INTIAL_STATE, action) => {
             const {count} = INTIAL_STATE;        
             return {...state, code,isSuccessful,messages, count, data};
         }
+        case CREATE_STORY:
         case EDIT_STORY:{
             const {code,isSuccessful,messages} = action.payload;                
             return {...state, code,isSuccessful,messages};
