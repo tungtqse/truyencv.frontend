@@ -1,23 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Fonts, COLOR_ITEMS} from '../../core/constants';
+import {Fonts} from '../../core/constants';
    
 class SettingChapter extends React.Component{
 
     onColorChange = (id) => {
         
-        const arr = COLOR_ITEMS;
+        const {setting} = this.props;
+        setting.idColor = id;           
 
-        const item = arr.find(f=>f.id === id);
-
-        if(item){
-            const {setting} = this.props;
-            setting.inColor = item.inColor;
-            setting.outColor = item.outColor;
-            setting.textColor = item.textColor;
-
-            this.props.onChangeSetting(setting);
-        }
+        this.props.onChangeSetting(setting);
     }
 
     onFontTypeChange = (event) => {
@@ -49,6 +41,29 @@ class SettingChapter extends React.Component{
         );
     }
 
+    renderColor = () => {
+        const maxColor = 8;
+        const {idColor} = this.props.setting;
+
+        let colors = [];
+
+        for (let index = 1; index <= maxColor; index++) {  
+            const className = `circular-label ${idColor === index ? 'active' : ''} color-item-${index}`;    
+
+            colors.push(
+                <div key={index} className="item item-circular">
+                    <span className={className} onClick={()=>this.onColorChange(index)}></span>
+                </div>
+            );
+        }
+
+        return(
+            <div className="ui horizontal list">
+                {colors}
+            </div>
+        );
+    }
+
     renderModal = () => {
         if(!this.props.show){
             return;
@@ -62,35 +77,8 @@ class SettingChapter extends React.Component{
                             <div className="five wide column chapter-setting-content">
                                 <span className="popup-label">Màu nền</span>
                             </div>
-                            <div className="eleven wide column list-color">
-                                <div className="ui horizontal list">
-                                    <div className="item">
-                                        <span className="circular-label active color-item-1" onClick={()=>this.onColorChange(1)}></span>
-                                    </div>
-                                    <div className="item">
-                                        <span className="circular-label color-item-2" onClick={()=>this.onColorChange(2)}></span>
-                                    </div>
-                                    <div className="item">
-                                        <span className="circular-label color-item-3" onClick={()=>this.onColorChange(3)}></span>
-                                    </div>
-                                    <div className="item">
-                                        <span className="circular-label color-item-4" onClick={()=>this.onColorChange(4)}></span>
-                                    </div>                                    
-                                </div>
-                                <div className="ui horizontal list">
-                                    <div className="item">
-                                        <span className="circular-label color-item-5" onClick={()=>this.onColorChange(5)}></span>
-                                    </div>
-                                    <div className="item">
-                                        <span className="circular-label color-item-6" onClick={()=>this.onColorChange(6)}></span>
-                                    </div>
-                                    <div className="item">
-                                        <span className="circular-label color-item-7" onClick={()=>this.onColorChange(7)}></span>
-                                    </div>
-                                    <div className="item">
-                                        <span className="circular-label color-item-8" onClick={()=>this.onColorChange(8)}></span>
-                                    </div>
-                                </div>
+                            <div className="eleven wide column list-color">                                
+                                {this.renderColor()}  
                             </div>
                         </div>
                         <div className="ui grid">

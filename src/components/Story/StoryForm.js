@@ -13,28 +13,24 @@ class StoryForm extends Component{
 
     componentDidMount(){
         const data = {keyword : '', skip: 0, take : 1000}
-        this.props.search(data);
+        this.props.search(data);      
     }
 
-    onSubmit = (formValues) => {     
-
-        const data = {...formValues, ...this.state};       
+    onSubmit = (formValues) => {                     
+        const data = {...formValues};       
         
         this.props.onSubmit(data);
     }
 
+    onCancel = () => {        
+        this.props.onCancel();
+    }
+
     handleSelect = (e) => {        
-        const {name,value} = e.target;
-        
-        if(name === 'authorId'){
-            this.setState({authorId : value});
-        }
-        else if(name === 'progressStatus'){
-            this.setState({progressStatus : value});
-        }
+        // Code for select change
     }
   
-    renderSelect = (fieldProps) => {  
+    renderSelect = (fieldProps) => {          
         return <SelectCore fieldProps={fieldProps} handleChange = {this.handleSelect}/>
     }
 
@@ -60,7 +56,8 @@ class StoryForm extends Component{
         return authors;
     }
 
-    renderForm = () => {
+    renderForm = () => {   
+             
         if(!this.props.initialValues){
             return(
                 <div className="ui segment">
@@ -69,7 +66,8 @@ class StoryForm extends Component{
             );
         }
 
-        const {progressStatus,authorId} = this.props.initialValues;        
+        let {progressStatus,authorId} = this.props.initialValues;       
+        
         const authors = this.remapAuthor();
 
         return(
@@ -80,8 +78,8 @@ class StoryForm extends Component{
                 <Field name="source" component={this.renderInput} label="Source"/>
                 <Field name="link" component={this.renderInput} label="Link"/>
                 <Field name="totalChapter" component={this.renderInput} label="Chapters" disable/>
-                <button className="ui button common-button">Submit</button>
-                <button className="ui button common-button">Cancel</button>
+                <button className="ui button common-button" type="submit">Submit</button>
+                <button className="ui button common-button" onClick={this.onCancel}>Cancel</button>
             </form>
         );
     }
@@ -95,7 +93,7 @@ class StoryForm extends Component{
     }
 }
 
-const validate = (formValues) => {    
+const validate = (formValues) => {        
     const errors = {};
 
     if(!formValues.name){
@@ -103,7 +101,7 @@ const validate = (formValues) => {
     }
 
     if(!formValues.source){
-        errors.source = 'You must enter a source';
+        //errors.source = 'You must enter a source';
     }
 
     if(!formValues.link){
@@ -121,7 +119,7 @@ const validate = (formValues) => {
     return errors;
 }
 
-const mapStateToProps = (state, ownProps) => {   
+const mapStateToProps = (state) => {   
          
     return{
         initialValues: state.story.data,
@@ -133,7 +131,7 @@ export default connect(
     mapStateToProps,
     {search}
   )(reduxForm({
-        form: 'storyForm', // a unique identifier for this form
-        validate,
-        enableReinitialize: true
+        form: 'storyForm', // a unique identifier for this form        
+        enableReinitialize: true,
+        validate
   })(StoryForm))

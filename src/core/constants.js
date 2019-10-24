@@ -39,21 +39,18 @@ export const Fonts = [
     {label: 'Arial', value:"Arial, sans-serif"},
 ];
 
-export const DEFAULT_CHAPTER_SETTING = {
-    outColor: "#e4dece",
-    inColor: "#EAE4D3",
+export const DEFAULT_CHAPTER_SETTING = {    
     fontSize: 26,
-    fontType: "Verdana, Geneva, Tahoma, sans-serif",
-    textColor: '#333333'
+    fontType: "Verdana, Geneva, Tahoma, sans-serif"
 }
 
 export const COLOR_ITEMS = [
-    {id : 1, inColor: '#EAE4D3', outColor: '#e4dece', textColor: '#333333'},
-    {id : 2, inColor: '#F1E8C2', outColor: '#DFCFA2', textColor: '#56442E'},
-    {id : 3, inColor: '#E5F1E5', outColor: '#CDDFCD', textColor: '#333333'},
-    {id : 4, inColor: '#E2EFF3', outColor: '#CDDBDF', textColor: '#333333'},
-    {id : 5, inColor: '#F5E4E4', outColor: '#EFDCDC', textColor: '#333333'},
-    {id : 6, inColor: '#DDDDDD', outColor: '#D0D0D0', textColor: '#333333'},
-    {id : 7, inColor: '#1A1C1D', outColor: '#101213', textColor: '#999999'},
-    {id : 8, inColor: '#FFFFFF', outColor: '#EEEEEE', textColor: '#999999'}
+    {id : 1, inColor: '#EAE4D3', outColor: '#e4dece', textColor: '#333333', titleColor: '#1F1F1F'},
+    {id : 2, inColor: '#F1E8C2', outColor: '#DFCFA2', textColor: '#56442E', titleColor: '#1F1F1F'},
+    {id : 3, inColor: '#E5F1E5', outColor: '#CDDFCD', textColor: '#333333', titleColor: '#1F1F1F'},
+    {id : 4, inColor: '#E2EFF3', outColor: '#CDDBDF', textColor: '#333333', titleColor: '#1F1F1F'},
+    {id : 5, inColor: '#F5E4E4', outColor: '#EFDCDC', textColor: '#333333', titleColor: '#1F1F1F'},
+    {id : 6, inColor: '#DDDDDD', outColor: '#D0D0D0', textColor: '#333333', titleColor: '#1F1F1F'},
+    {id : 7, inColor: '#1A1C1D', outColor: '#101213', textColor: '#999999', titleColor: '#999999'},
+    {id : 8, inColor: '#FFFFFF', outColor: '#EEEEEE', textColor: '#999999', titleColor: '#1F1F1F'}
 ];

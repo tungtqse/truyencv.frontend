@@ -52,6 +52,7 @@ export const edit = (data) => {
 
 export const create = (data) => {    
     return async (dispatch) => {         
+        
         const response = await storyApi.post(`/story/create`,data,{            
             headers:{
                 accept : 'application/json',

@@ -32,7 +32,8 @@ class SelectCore extends React.Component{
                         name={fieldProps.input.name} 
                         onChange={this.handleChange}
                         disabled={fieldProps.disable}
-                        onBlur={this.handleClick}>
+                        onBlur={this.handleClick}
+                        {...fieldProps.input}>
                     <option className="select-option-default" value="" disabled>{`Select ${fieldProps.label}...`}</option>
                     {this.renderOptions(fieldProps.options)}
                     

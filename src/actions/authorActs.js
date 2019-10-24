@@ -60,6 +60,6 @@ export const create = (data) => {
         });
 
         dispatch({ type: CREATE_AUTHOR, payload: response.data });
-        history.push('/');
+        history.push('/author');
     }
 }

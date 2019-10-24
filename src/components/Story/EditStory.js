@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {edit, show} from '../../actions/storyActs';
 import StoryForm from './StoryForm';
+import history from '../../history';
 
 class EditStory extends React.Component {
 
@@ -12,6 +13,11 @@ class EditStory extends React.Component {
 
     onSubmit = (data) => {  
         this.props.edit(data);
+    }
+
+    onCancel = () => {
+        const {id} = this.props.match.params;
+        history.push(`/story/${id}`);
     }
 
     renderForm = () => {
@@ -27,7 +33,8 @@ class EditStory extends React.Component {
             <div>            
                 <h3>Edit Story</h3>
                 <StoryForm 
-                    onSubmit={this.onSubmit}                      
+                    onSubmit={this.onSubmit}     
+                    onCancel={this.onCancel}                  
                 />
             </div>
         );
