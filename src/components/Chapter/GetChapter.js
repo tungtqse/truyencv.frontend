@@ -1,15 +1,15 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {show} from '../../actions/chapterActs'
+import {show, bookmark} from '../../actions/chapterActs'
 import '../../styles/chapter/chapter-show.css';
 import '../../styles/chapter/chapter-popup.css';
 import SettingChapter from './SettingChapter';
-import {CHAPTER_SETTING, DEFAULT_CHAPTER_SETTING, COLOR_ITEMS} from '../../core/constants';
+import {CHAPTER_SETTING, DEFAULT_CHAPTER_SETTING, COLOR_ITEMS, CHAPTER_READING} from '../../core/constants';
 
 class GetChapter extends React.Component{
 
-    state = {show : false, fontSize : DEFAULT_CHAPTER_SETTING.fontSize, fontType : DEFAULT_CHAPTER_SETTING.fontType, idColor : 1 }
+    state = {show : false, fontSize : DEFAULT_CHAPTER_SETTING.fontSize, fontType : DEFAULT_CHAPTER_SETTING.fontType, idColor : 1, isBookmark: this.props.chapter.isBookmark }
 
     componentDidMount(){        
         const {storyId,numberChapter} = this.props.match.params;
@@ -22,13 +22,26 @@ class GetChapter extends React.Component{
             const {fontSize, fontType, idColor} = JSON.parse(chapterSetting);
             this.setState({fontSize, fontType, idColor});           
         }       
+
+        this.setChapterReading(storyId,numberChapter);
     }
 
     componentWillReceiveProps(nextProps) {
         if(this.props.match.params !== nextProps.match.params) {
-            const {storyId,numberChapter} = nextProps.match.params;            
+            const {storyId,numberChapter} = nextProps.match.params;           
             nextProps.show(storyId,numberChapter);
+            this.setChapterReading(storyId,numberChapter);            
         }
+    }
+
+    setBookmark = () => {        
+        const {storyId, id} = this.props.chapter;
+
+        this.props.bookmark(storyId, id);
+
+        const {isBookmark} = this.state;
+
+        this.setState({isBookmark: !isBookmark});
     }
 
     onClickSetting = () => {
@@ -61,6 +74,27 @@ class GetChapter extends React.Component{
 
         return null;
     }
+
+    setChapterReading = (storyId,numberChapter) => {
+
+        let chapters = localStorage.getItem(CHAPTER_READING);
+
+        if(chapters != null){
+            let list = JSON.parse(chapters);
+            localStorage.removeItem(CHAPTER_READING);
+
+            let filtered = list.filter(function(fValue, index, arr){
+                return fValue.storyId !== storyId;                    
+            });
+
+            filtered.push({storyId : storyId, chapter: numberChapter});
+            localStorage.setItem(CHAPTER_READING, JSON.stringify(filtered));
+        }
+        else{            
+            const list = [{storyId : storyId, chapter: numberChapter}];
+            localStorage.setItem(CHAPTER_READING, JSON.stringify(list));
+        }
+    }
     
     renderContent = () => {
         if(!this.props.chapter){
@@ -68,7 +102,7 @@ class GetChapter extends React.Component{
         }
         
         const {title, author, content, modifiedDate, nextNumberChapter, preNumberChapter, storyId, story} = this.props.chapter; 
-
+        
         const setting = this.getColorSetting();
         const {fontSize, fontType} = this.state;
        
@@ -97,6 +131,14 @@ class GetChapter extends React.Component{
                     </div>
                     {this.renderChapterSetting(storyId, nextNumberChapter,preNumberChapter)}
                     <div className="chapter-content-info" style={{backgroundColor: setting.inColor }}>
+                        <div>
+                            <button className="chapter-bookmark" data-tooltip="Đánh dấu" onClick={this.setBookmark}>
+                                {this.state.isBookmark ? 
+                                    (<i className="huge grey bookmark icon"/>)
+                                    : (<i className="huge grey bookmark outline icon"/>)
+                                }
+                            </button>
+                        </div>
                         <div className="chapter-subheader">
                             <h4 className="ui header" style={{color: setting.titleColor}}>{title}</h4>
                         </div>
@@ -142,10 +184,11 @@ class GetChapter extends React.Component{
     }
 }
 
-const mapStateToProps = (state) => {        
+const mapStateToProps = (state) => {    
+    debugger    
     return{
         chapter : state.chapter.data
     }
 }
 
-export default connect(mapStateToProps, {show}) (GetChapter);
+export default connect(mapStateToProps, {show, bookmark}) (GetChapter);

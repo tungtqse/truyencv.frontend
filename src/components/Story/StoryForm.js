@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {storyProgressStatus} from '../../core/constants';
 import SelectCore from '../Common/Fields/SelectCore';
 import InputCore from '../Common/Fields/InputCore';
+import TextareaCore from '../Common/Fields/TextareaCore';
 import {search} from '../../actions/authorActs';
 
 
@@ -37,6 +38,10 @@ class StoryForm extends Component{
     renderInput = (fieldProps) => {
         return <InputCore fieldProps={fieldProps}/>
     }  
+
+    renderTextarea = (fieldProps) => {
+        return <TextareaCore fieldProps={fieldProps}/>
+    }
 
     remapAuthor = () => {
         let authors = [];
@@ -77,6 +82,7 @@ class StoryForm extends Component{
                 <Field name="progressStatus" component={this.renderSelect} label="Progess Status" options={storyProgressStatus} value={progressStatus}/>
                 <Field name="source" component={this.renderInput} label="Source"/>
                 <Field name="link" component={this.renderInput} label="Link"/>
+                <Field name="description" component={this.renderTextarea} label="Description"/>
                 <Field name="totalChapter" component={this.renderInput} label="Chapters" disable/>
                 <button className="ui button common-button" type="submit">Submit</button>
                 <button className="ui button common-button" onClick={this.onCancel}>Cancel</button>

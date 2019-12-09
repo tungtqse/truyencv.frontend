@@ -18,6 +18,13 @@ export const EDIT_CHAPTER = 'EDIT_CHAPTER';
 export const DELETE_CHAPTER = 'DELETE_CHAPTER';
 export const GET_CHAPTER = 'GET_CHAPTER';
 export const LIST_CHAPTER = 'LIST_CHAPTER';
+export const BOOKMARK_CHAPTER = 'BOOKMARK_CHAPTER';
+
 
 // Search Action Types
 export const SEARCH = 'SEARCH';
+
+// Reading Story Action Types
+export const CREATE_READING = 'CREATE_READING';
+export const LIST_READING = 'LIST_READING';
+export const DELETE_READING = 'DELETE_READING';

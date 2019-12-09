@@ -1,5 +1,5 @@
 import storyApi from '../api/truyencvApi';
-import {LIST_CHAPTER, GET_CHAPTER} from '../core/actionTypes';
+import {LIST_CHAPTER, GET_CHAPTER, BOOKMARK_CHAPTER} from '../core/actionTypes';
 import history from '../history';
 
 export const search = (data) => {
@@ -27,5 +27,19 @@ export const show = (storyId,numberChapter) => {
         });
 
         dispatch({ type: GET_CHAPTER, payload: response.data });
+    }
+}
+
+export const bookmark = (storyId,chapterId) => {
+    return async(dispatch) => {    
+        
+        const response = await storyApi.post(`/chapter/setbookmark/`,{storyId: storyId, chapterId: chapterId},{            
+            headers:{
+                accept : 'application/json',
+                'content-type' : 'application/json'
+            }
+        });
+
+        dispatch({ type: BOOKMARK_CHAPTER, payload: response.data });
     }
 }

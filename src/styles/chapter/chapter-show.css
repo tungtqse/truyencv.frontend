@@ -44,3 +44,13 @@
     line-height: 140%;
     word-wrap: break-word;
 }
+
+.chapter-bookmark{
+    background-color: transparent;
+    border: none;
+    float: right;
+}
+
+.chapter-bookmark:focus{
+    outline:none;
+}

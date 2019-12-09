@@ -15,3 +15,7 @@
     display: inline;
     margin-right: 3%;
 }
+
+.story-description{
+    white-space: pre-wrap;
+}

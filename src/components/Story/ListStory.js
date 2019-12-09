@@ -28,7 +28,7 @@ class ListStory extends React.Component {
     }
 
     renderList = () => {        
-        if(!this.props.stories){
+        if(!this.props.stories || this.props.count === 0){
             return;
         }
         
@@ -52,15 +52,13 @@ class ListStory extends React.Component {
                         </div>  
                    </td>
                    <td>
-                        <div className="content">
-                            <Link to="" className="story-total-chapter">Chương {item.totalChapter}</Link>                           
-                            <div className="sub header story-modified">Updated {item.modifiedDateDisplay}</div>
+                        <div className="content">                            
+                            <Link to={`/chapter/${item.id}/${item.totalChapter}`} className="story-total-chapter">Chương {item.totalChapter}</Link> 
                         </div>                        
                    </td>
                    <td>
                         <div className="content">
-                            <Link to="" className="story-action-read">Xem Tiếp</Link>                             
-                            <div className="sub header story-info">Đã đọc: 0/{item.totalChapter}</div>
+                            <div className="sub header story-modified">Updated {item.modifiedDateDisplay}</div>
                         </div>  
                         
                    </td>
@@ -92,6 +90,7 @@ class ListStory extends React.Component {
 }
 
 const mapStateToProps = (state) => {    
+    
     return{
         stories : Object.values(state.story.data),
         count : state.story.count

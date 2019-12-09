@@ -6,13 +6,30 @@ import '../../styles/story/story-show.css';
 import Tab from '../Common/Tab/Tab';
 import Tabs from '../Common/Tab/Tabs';
 import GetStoryChapter from './GetStoryChapter';
+import {CHAPTER_READING} from '../../core/constants';
 
 class GetStory extends React.Component{
+
+    state = {chapter: 0};
 
     componentDidMount(){        
         const {id} = this.props.match.params;
 
         this.props.show(id);
+        this.getChapterSetting(id);
+    }
+
+    getChapterSetting = (storyId) => {
+        let chapters = localStorage.getItem(CHAPTER_READING);
+
+        if(chapters != null){
+            let list = JSON.parse(chapters);
+            var item = list.find(f=>f.storyId === storyId);
+
+            if(item != null){
+                this.setState({chapter: item.chapter});
+            }
+        }
     }
 
     renderContent = () => {         
@@ -51,8 +68,11 @@ class GetStory extends React.Component{
                                 <div className="eight wide column"></div>
                                 <br/>
                                 <div className="sixteen wide column">
-                                    <button className="ui button primary story-start-read">Đọc từ đầu</button>
-                                    <button className="ui button primary story-cont-read">Xem tiếp</button>
+                                    {this.state.chapter === 0 ?
+                                        (<Link to={`/chapter/${id}/1`} className="ui button primary story-start-read">Đọc từ đầu</Link>)
+                                        : (<Link to={`/chapter/${id}/${this.state.chapter}`} className="ui button primary story-cont-read">Xem tiếp</Link>)
+                                    }                                    
+                                    
                                 </div>
                             </div>
                         </div>
@@ -74,13 +94,17 @@ class GetStory extends React.Component{
             );
         }
         
+        const {id, description} = this.props.story;
+
         return(
             <Tabs>
                 <Tab label={'Giới thiệu'}>
-                    <p>Giới thiệu</p>
+                    <div className="story-description">
+                        <p>{description}</p>
+                    </div>
                 </Tab>
                 <Tab label={'Danh sách chương'}>
-                    <GetStoryChapter id={this.props.story.id}/>
+                    <GetStoryChapter id={id}/>
                 </Tab>
                 <Tab label={'Bình luận'}>
                     <p>Bình luận</p>

@@ -3,25 +3,13 @@ export const TAKE_DEFAULT = 10;
 export const MAX_PAGE = 10;
 export const CHAPTER_TAKE_DEFAULT = 30;
 export const CHAPTER_SETTING = "chapter_setting";
+export const CHAPTER_READING = "chapter_reading";
 
 export const storyProgressStatus = [
-    {
-        label: "Processing",
-        value : "Processing"
-    },
-    {
-        label: "Completed",
-        value : "Completed"
-    },
-    {
-        label: "Pending",
-        value : "Pending"
-    },
-    {
-        label: "Dropped",
-        value : "Dropped"
-    }
-    
+    { label: "Processing", value : "Processing" },
+    { label: "Completed", value : "Completed" },
+    { label: "Pending", value : "Pending" },
+    { label: "Dropped", value : "Dropped" }    
 ];
 
 
